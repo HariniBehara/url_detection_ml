@@ -173,44 +173,6 @@ def predict():
 
         return render_template('index.html', url=url, prediction_text=result, result_class=result_class)
 
-# API Endpoint (JSON Response)
-@app.route('/api/predict', methods=['POST'])
-def api_predict():
-    if request.method == 'POST':
-        data = request.json
-        url = data['url']
-
-        # Feature Extraction
-        features = [
-            having_ip_address(url),
-            abnormal_url(url),
-            count_dot(url),
-            count_www(url),
-            count_atrate(url),
-            no_of_dir(url),
-            no_of_embed(url),
-            shortening_service(url),
-            count_https(url),
-            count_http(url),
-            count_per(url),
-            count_ques(url),
-            count_hyphen(url),
-            count_equal(url),
-            url_length(url),
-            hostname_length(url),
-            suspicious_words(url),
-            digit_count(url),
-            letter_count(url),
-            fd_length(url),
-            tld_length(url)
-        ]
-        features = [features]  # Convert to 2D array for prediction
-
-        # Make Prediction
-        prediction = model.predict(features)
-        result = 'Benign' if prediction[0] == 0 else 'Malicious'
-
-        return jsonify({'url': url, 'prediction': result})
 import os
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))  # Use Render's assigned port
