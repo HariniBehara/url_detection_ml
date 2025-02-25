@@ -149,8 +149,11 @@
             <button type="submit">Analyze URL</button>
         </form>
 
+        <!-- Prediction result will appear only after form submission -->
         {% if prediction_text %}
-            <div class="result {{ result_class }}">{{ prediction_text }}</div>
+            <div class="result {{ result_class }}">
+                {{ prediction_text }}
+            </div>
         {% endif %}
 
         <div class="footer">
